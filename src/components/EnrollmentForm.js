@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from './FormikControl'
 
-function EnrollmentForm () {
+function EnrollmentForm ({toMessage, onFromMessage}) {
   const dropdownOptions = [
     { key: 'Select your course', value: '' },
     { key: 'React', value: 'react' },
@@ -18,6 +18,7 @@ function EnrollmentForm () {
   ]
 
   const initialValues = {
+    message: '',
     email: '',
     bio: '',
     course: '',
@@ -38,6 +39,7 @@ function EnrollmentForm () {
 
   const onSubmit = values => {
     console.log('Form data', values)
+    onFromMessage(values.message)
   }
 
   return (
@@ -49,6 +51,7 @@ function EnrollmentForm () {
       {formik => {
         return (
           <Form>
+            <FormikControl control='input' label={toMessage} name='message'/>
             <FormikControl
               control='input'
               type='email'

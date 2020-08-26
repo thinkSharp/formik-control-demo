@@ -3,8 +3,9 @@ import {Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from './FormikControl'
 
-function LoginForm() {
+function LoginForm({toMessage, onFromMessage}) {
     const initialValue ={
+        message: '',
         email: '',
         password: ''
     }
@@ -15,6 +16,7 @@ function LoginForm() {
 
     const onSubmit = values => {
         console.log('Form Data', values)
+        onFromMessage(values.message)
     }
 
     return (
@@ -26,6 +28,7 @@ function LoginForm() {
             {
                 formik => {
                     return <Form>
+                        <FormikControl control='input' label={toMessage} name='message' />
                         <FormikControl control='chakrainput' type='email' label = 'Email' name = 'email' />
                         <FormikControl control='chakrainput' type='password' label = 'Password' name='password' />
                         <button type='submit' disabled={!formik.isValid}>Submit</button>

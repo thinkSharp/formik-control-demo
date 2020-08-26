@@ -3,12 +3,13 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from './FormikControl'
 
-function RegistrationForm () {
+function RegistrationForm ({toMessage, onFromMessage}) {
   const options = [
     { key: 'Email', value: 'emailmoc' },
     { key: 'Telephone', value: 'telephonemoc' }
   ]
   const initialValues = {
+    message: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -33,6 +34,7 @@ function RegistrationForm () {
 
   const onSubmit = values => {
     console.log('Form data', values)
+    onFromMessage(values.message)
   }
 
   return (
@@ -44,6 +46,7 @@ function RegistrationForm () {
       {formik => {
         return (
           <Form>
+            <FormikControl control='input'  name='message' label={toMessage} />
             <FormikControl
               control='input'
               type='email'
